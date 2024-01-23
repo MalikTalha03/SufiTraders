@@ -3,24 +3,25 @@ import { createSlice } from "@reduxjs/toolkit";
 export const orderdataSlice = createSlice({
   name: "orderdata",
   initialState: {
-    orderdata: [],
+    orderdata: [], // Array to store product information
     status: "idle",
     error: null,
   },
   reducers: {
     setOrderdata: (state, action) => {
-      state.orderdata = [...state.orderdata, action.payload];
-    },
-    updateOrderdata: (state, action) => {
-      const updatedData = state.orderdata.map((item) =>
-        item.id === action.payload.id
-          ? { ...item, ...action.payload, total: action.payload.price * action.payload.quantity }
-          : item
+      const existingProductIndex = state.orderdata.findIndex(
+        (product) => product.id === action.payload.id
       );
-      state.orderdata = updatedData;
-    },
+
+      if (existingProductIndex !== -1) {
+        state.orderdata[existingProductIndex].quantity =
+          action.payload.quantity;
+      } else {
+        state.orderdata = [...state.orderdata, action.payload];
+      }
+    }
   },
 });
 
-export const { setOrderdata,updateOrderdata } = orderdataSlice.actions;
+export const { setOrderdata, updateOrderdata } = orderdataSlice.actions;
 export default orderdataSlice.reducer;
