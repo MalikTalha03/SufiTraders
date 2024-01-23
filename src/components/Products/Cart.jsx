@@ -26,7 +26,11 @@ const Cart = (props) => {
   return (
     <Space direction="vertical" style={props.style}>
       <Badge count={count}>
-        <FaIcons.FaShoppingCart size={30} color="black" onClick={openCartDrawer} />
+        <FaIcons.FaShoppingCart
+          size={30}
+          color="black"
+          onClick={openCartDrawer}
+        />
       </Badge>
       <CartDrawer visible={cartVisible} onClose={closeCartDrawer} />
     </Space>
