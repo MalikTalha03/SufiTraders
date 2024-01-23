@@ -8,7 +8,6 @@ const navBarStyle = {
   width: "100%",
   zIndex: "999",
   height: "7%",
-
 };
 
 const menuStyle = {
@@ -58,8 +57,6 @@ const Navbar = () => {
   const onItemMouseOut = (key) => {
     setItemColors((prevColors) => ({ ...prevColors, [key]: defaultColor }));
   };
-  
-
 
   return (
     <div style={navBarStyle}>
@@ -94,8 +91,10 @@ const Navbar = () => {
           >
             Contact
           </Menu.Item>
-        </div> 
-        <Cart style={{ marginRight: "3%", paddingTop:'1%',cursor:'pointer' }} />
+        </div>
+        <Cart
+          style={{ marginRight: "3%", paddingTop: "1%", cursor: "pointer" }}
+        />
       </Menu>
     </div>
   );
