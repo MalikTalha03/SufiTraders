@@ -8,6 +8,7 @@ const navBarStyle = {
   position: "fixed",
   width: "100%",
   zIndex: "999",
+  height: "10%",
 };
 
 const menuStyle = {
@@ -22,8 +23,7 @@ const itemStyle = {
   fontFamily: "sans-serif",
   cursor: "pointer",
   transition: "color 0.3s ease",
-  borderBottom: "2px solid transparent", // Added underline transition effect
-  background: "none", // Remove default background color on click
+  background: "none",
 };
 
 const searchBar = {
@@ -71,7 +71,7 @@ const Navbar = () => {
   return (
     <div style={navBarStyle}>
       <Menu mode="horizontal" style={menuStyle}>
-        <div style={{ width: "33.33%",marginLeft:'5%'}}>
+        <div style={{ width: "33.33%", marginLeft: "5%" }}>
           <Typography.Title level={3} style={{ margin: "0" }}>
             Sufi Traders
           </Typography.Title>
@@ -104,7 +104,7 @@ const Navbar = () => {
         </div>
 
         <div style={{ width: "33.33%" }}>
-          <Menu.Item key="mail" style={{marginLeft:'25%'}} >
+          <Menu.Item key="mail" style={{ marginLeft: "25%" }}>
             <Space direction="vertical">
               <Search
                 placeholder="Search Product"
