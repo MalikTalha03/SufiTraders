@@ -3,19 +3,42 @@ import { Card, Button } from "antd";
 import PropTypes from "prop-types"; // Import PropTypes for type-checking
 import * as FaIcons from "react-icons/fa";
 import logo from "../../Sufi_ccexpress.png";
+import { setOrderdata, updateOrderdata } from "../../app/features/orderdata";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+
 
 const ProdCard = (props) => {
   const [quantity, setQuantity] = useState(0);
+  const dispatch = useDispatch();
+  const orderdata = useSelector((state) => state.orderdata.orderdata);
 
   const handleAddToCart = () => {
+    console.log(props)
     if (quantity < props.quantity) {
       setQuantity(quantity + 1);
+      dispatch(
+        setOrderdata({
+          id: props.id,
+          name: props.name,
+          quantity: quantity + 1,
+          price: props.price,
+        })
+      );
     }
   };
 
   const handleRemoveFromCart = () => {
     if (quantity > 0) {
       setQuantity(quantity - 1);
+      // Dispatch an action to update the quantity in the orderdata in the store
+      dispatch(
+        updateOrderdata({
+          id: props.id,
+          quantity: quantity - 1,
+          price: props.price,
+        })
+      );
     }
   };
 
@@ -85,3 +108,4 @@ ProdCard.propTypes = {
 };
 
 export default ProdCard;
+
