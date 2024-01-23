@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { Menu, Space, Typography, Input } from "antd";
-const { Search } = Input;
+import Cart from "../Products/Cart";
 
 const navBarStyle = {
   backgroundColor: "#D4E7C5",
   position: "fixed",
   width: "100%",
   zIndex: "999",
-  height: "10%",
+  height: "7%",
 
 };
 
@@ -26,18 +26,11 @@ const itemStyle = {
   background: "none",
 };
 
-const searchBar = {
-  width: "100%",
-  height: "5%",
-  marginTop: "3%",
-};
-
 const items = {
   display: "flex",
   alignItems: "center",
-  width: "33.33%",
-  alignSelf: "flex-start",
-  margin: "0",
+  width: "50%",
+  marginLeft: "25%",
 };
 
 const logoStyle = {
@@ -65,13 +58,13 @@ const Navbar = () => {
   const onItemMouseOut = (key) => {
     setItemColors((prevColors) => ({ ...prevColors, [key]: defaultColor }));
   };
+  
 
-  const onSearch = (value) => console.log(value);
 
   return (
     <div style={navBarStyle}>
       <Menu mode="horizontal" style={menuStyle}>
-        <div style={{ width: "33.33%", marginLeft: "5%" }}>
+        <div style={{ width: "50%", marginLeft: "5%" }}>
           <Typography.Title level={3} style={{ margin: "0" }}>
             Sufi Traders
           </Typography.Title>
@@ -101,19 +94,8 @@ const Navbar = () => {
           >
             Contact
           </Menu.Item>
-        </div>
-
-        <div style={{ width: "33.33%" }}>
-          <Menu.Item key="mail" style={{ marginLeft: "25%" }}>
-            <Space direction="vertical">
-              <Search
-                placeholder="Search Product"
-                onSearch={onSearch}
-                style={searchBar}
-              />
-            </Space>
-          </Menu.Item>
-        </div>
+        </div> 
+        <Cart style={{ marginRight: "3%", paddingTop:'1%',cursor:'pointer' }} />
       </Menu>
     </div>
   );
