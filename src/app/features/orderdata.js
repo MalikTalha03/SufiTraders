@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 export const orderdataSlice = createSlice({
   name: "orderdata",
   initialState: {
-    orderdata: [], // Array to store product information
+    orderdata: [],
     status: "idle",
     error: null,
   },
@@ -19,7 +19,7 @@ export const orderdataSlice = createSlice({
       } else {
         state.orderdata = [...state.orderdata, action.payload];
       }
-    }
+    },
   },
 });
 
