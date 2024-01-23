@@ -3,12 +3,12 @@ import { Menu, Space, Typography, Input } from "antd";
 const { Search } = Input;
 
 const navBarStyle = {
-  backgroundColor: "#fff",
-  borderBottom: "1px solid #e8e8e8",
+  backgroundColor: "#D4E7C5",
   position: "fixed",
   width: "100%",
   zIndex: "999",
   height: "10%",
+
 };
 
 const menuStyle = {
