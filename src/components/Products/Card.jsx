@@ -7,14 +7,13 @@ import { setOrderdata, updateOrderdata } from "../../app/features/orderdata";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 
-
 const ProdCard = (props) => {
   const [quantity, setQuantity] = useState(0);
   const dispatch = useDispatch();
   const orderdata = useSelector((state) => state.orderdata.orderdata);
 
   const handleAddToCart = () => {
-    console.log(props)
+    console.log(props);
     if (quantity < props.quantity) {
       setQuantity(quantity + 1);
       dispatch(
@@ -108,4 +107,3 @@ ProdCard.propTypes = {
 };
 
 export default ProdCard;
-
