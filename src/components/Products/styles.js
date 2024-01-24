@@ -91,8 +91,6 @@ const cardContainer = {
 };
 
 const searchBar = {
-  width: "15%",
-  height: "5%",
   marginTop: "6%",
   alignSelf: "flex-end",
   marginRight: "5%",
