@@ -7,6 +7,20 @@ import CartDrawer from "./CartDrawer";
 const Cart = (props) => {
   const [count, setCount] = useState(0);
   const [cartVisible, setCartVisible] = useState(false);
+  const [isMobile, setIsMobile] = useState(
+    window.matchMedia("(max-width: 767px)").matches
+  );
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.matchMedia("(max-width: 767px)").matches);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   const openCartDrawer = () => {
     setCartVisible(true);
@@ -28,7 +42,7 @@ const Cart = (props) => {
     <Space direction="vertical" style={props.style}>
       <Badge count={count}>
         <FaIcons.FaShoppingCart
-          size={30}
+          size={isMobile ? "2em" : "2vw"}
           color="black"
           onClick={openCartDrawer}
         />
