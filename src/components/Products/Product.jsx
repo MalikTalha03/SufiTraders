@@ -8,10 +8,23 @@ import { cardContainer, main, searchBar } from "./styles";
 
 const Product = () => {
   const dispatch = useDispatch();
+
+  const [isMobile, setIsMobile] = useState(
+    window.matchMedia("(max-width: 767px)").matches
+  );
   useEffect(() => {
     dispatch(fetchProducts());
-  }, [dispatch]);
 
+    const handleResize = () => {
+      setIsMobile(window.matchMedia("(max-width: 767px)").matches);
+    };
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [dispatch]);
   const allProducts = useSelector((state) =>
     state.products.products.map((product) => ({
       id: product._id,
@@ -28,10 +41,15 @@ const Product = () => {
   );
 
   return (
-    <div style={main}>
+    <div style={{ ...main, paddingTop: isMobile ? "15%" : 0 }}>
       <Input
         placeholder="Search Product"
-        style={searchBar}
+        style={{
+          ...searchBar,
+          width: isMobile ? "50%" : "15%",
+          height: isMobile ? "15%" : "5%",
+          marginBottom: isMobile ? "5%" : 0,
+        }}
         onChange={(e) => setSearchValue(e.target.value)}
       />
       <div style={cardContainer}>
