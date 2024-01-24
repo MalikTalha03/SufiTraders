@@ -3,18 +3,20 @@ import { Button, Drawer, Space, Table } from "antd";
 import { PlusOutlined, MinusOutlined } from "@ant-design/icons";
 import { useSelector, useDispatch } from "react-redux";
 import { setOrderdata } from "../../app/features/orderdata";
+import Checkout from "./Checkout";
 
 const CartDrawer = ({ visible, onClose }) => {
   const [products, setProducts] = useState([]);
+  const [isCartEmpty, setIsCartEmpty] = useState(true);
+  const [cartOpen, setCartOpen] = useState(false);
   const dispatch = useDispatch();
 
   const orderdata = useSelector((state) => state.orderdata.orderdata);
 
   useEffect(() => {
-    if (!areArraysEqual(products, orderdata)) {
-      setProducts(orderdata);
-    }
-  }, [orderdata, products]);
+    setProducts(orderdata);
+    setIsCartEmpty(orderdata.every((product) => product.quantity === 0));
+  }, [orderdata]);
 
   const handleIncrement = (productId) => {
     const updatedProducts = products.map((product) => {
@@ -86,6 +88,97 @@ const CartDrawer = ({ visible, onClose }) => {
     },
   ];
 
+  const onOrder = async (data) => {
+    const api = process.env.REACT_APP_API_URL;
+    try {
+      // Extracting data from orderData
+      const firstName = data.firstName;
+      const lastName = data.lastName;
+      const contact = data.contact;
+      const orderDate = new Date();
+      const paymentStatus = "Pending";
+      const orderType = "Online";
+
+      const orderPayload = {
+        firstname: firstName,
+        lastname: lastName,
+        contact: contact,
+      };
+
+      const customerResponse = await fetch(api + "customer", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(orderPayload),
+      });
+
+      if (!customerResponse.ok) {
+        throw new Error(
+          `Failed to create a customer: ${customerResponse.statusText}`
+        );
+      }
+
+      const customerData = await customerResponse.json();
+      const customerId = customerData.id;
+
+      const orderPatchPayload = {
+        orderDate: orderDate,
+        paymentStatus: paymentStatus,
+        orderType: orderType,
+      };
+
+      const orderResponse = await fetch(`${api}customer/${customerId}/orders`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(orderPatchPayload),
+      });
+
+      if (!orderResponse.ok) {
+        throw new Error(`Failed to add an order: ${orderResponse.statusText}`);
+      }
+
+      const orderData = await orderResponse.json();
+      const orderId = orderData.id;
+
+      for (const item of orderdata) {
+        const orderDetailsPayload = {
+          productid: item.id,
+          qty: item.quantity,
+          unitPrice: item.price,
+        };
+
+        const orderDetailsResponse = await fetch(
+          `${api}customer/${customerId}/orders/${orderId}/details`,
+          {
+            method: "PATCH",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(orderDetailsPayload),
+          }
+        );
+
+        if (!orderDetailsResponse.ok) {
+          throw new Error(
+            `Failed to add order details: ${orderDetailsResponse.statusText}`
+          );
+        }
+
+        const orderDetailsData = await orderDetailsResponse.json();
+      }
+
+      alert("Order placed successfully! Your order ID is " + orderId + ".");
+      setCartOpen(false);
+      onClose();
+      window.location.reload();
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+
   const dataSource = products
     .filter((product) => product.quantity > 0)
     .map((product) => ({
@@ -124,13 +217,24 @@ const CartDrawer = ({ visible, onClose }) => {
           Subtotal: ${subtotal}
         </span>
       </div>
+      <Button
+        type="primary"
+        style={{ position: "absolute", bottom: 16, right: 16 }}
+        disabled={
+          isCartEmpty || orderdata.every((product) => product.quantity === 0)
+        }
+        onClick={() => setCartOpen(true)}
+      >
+        Checkout
+      </Button>
+      <Checkout
+        open={cartOpen}
+        onClose={() => setCartOpen(false)}
+        subtotal={subtotal}
+        onOrder={onOrder}
+      />
     </Drawer>
   );
 };
-
-// Utility function to compare two arrays for equality
-function areArraysEqual(arr1, arr2) {
-  return JSON.stringify(arr1) === JSON.stringify(arr2);
-}
 
 export default CartDrawer;
