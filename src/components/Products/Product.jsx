@@ -7,6 +7,9 @@ import { Input } from "antd";
 import { cardContainer, main, searchBar } from "./styles";
 
 const Product = () => {
+  useEffect(() => {
+    fetchProducts();
+  },[]);
   const dispatch = useDispatch();
 
   const [isMobile, setIsMobile] = useState(
