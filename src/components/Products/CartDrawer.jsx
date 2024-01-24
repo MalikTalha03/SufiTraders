@@ -4,6 +4,7 @@ import { PlusOutlined, MinusOutlined } from "@ant-design/icons";
 import { useSelector, useDispatch } from "react-redux";
 import { setOrderdata } from "../../app/features/orderdata";
 import Checkout from "./Checkout";
+import { table, span, ordBtn } from "./styles";
 
 const CartDrawer = ({ visible, onClose }) => {
   const [products, setProducts] = useState([]);
@@ -91,7 +92,6 @@ const CartDrawer = ({ visible, onClose }) => {
   const onOrder = async (data) => {
     const api = process.env.REACT_APP_API_URL;
     try {
-      // Extracting data from orderData
       const firstName = data.firstName;
       const lastName = data.lastName;
       const contact = data.contact;
@@ -206,20 +206,12 @@ const CartDrawer = ({ visible, onClose }) => {
       width={600}
     >
       <Table columns={columns} dataSource={dataSource} pagination={false} />
-      <div
-        style={{
-          marginTop: "10px",
-          display: "flex",
-          justifyContent: "flex-end",
-        }}
-      >
-        <span style={{ fontWeight: "bold", fontSize: "20px" }}>
-          Subtotal: ${subtotal}
-        </span>
+      <div style={table}>
+        <span style={span}>Subtotal: ${subtotal}</span>
       </div>
       <Button
         type="primary"
-        style={{ position: "absolute", bottom: 16, right: 16 }}
+        style={ordBtn}
         disabled={
           isCartEmpty || orderdata.every((product) => product.quantity === 0)
         }

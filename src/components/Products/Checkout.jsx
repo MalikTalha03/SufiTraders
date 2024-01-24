@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Button, Drawer, Input, Space } from "antd";
+import { mainCont, input, subTotal, chkBtn } from "./styles";
 
 const Checkout = ({ open, onClose, subtotal, onOrder }) => {
   const [firstName, setFirstName] = useState("");
@@ -23,10 +24,7 @@ const Checkout = ({ open, onClose, subtotal, onOrder }) => {
 
   return (
     <Drawer title="Checkout" onClose={onClose} visible={open} width={400}>
-      <Space
-        direction="vertical"
-        style={{ width: "100%", paddingRight: "16px" }}
-      >
+      <Space direction="vertical" style={mainCont}>
         <Input
           placeholder="First Name"
           value={firstName}
@@ -36,30 +34,20 @@ const Checkout = ({ open, onClose, subtotal, onOrder }) => {
           placeholder="Last Name"
           value={lastName}
           onChange={(e) => setLastName(e.target.value)}
-          style={{ marginTop: "8px" }}
+          style={input}
         />
         <Input
           placeholder="Contact"
           value={contact}
           onChange={(e) => setContact(e.target.value)}
-          style={{ marginTop: "8px" }}
+          style={input}
         />
-        <div
-          style={{ fontWeight: "bold", fontSize: "20px", marginTop: "16px" }}
-        >
-          Subtotal: ${Number(subtotal).toFixed(2)}
-        </div>
+        <div style={subTotal}>Subtotal: ${Number(subtotal).toFixed(2)}</div>
         <Button
           type="primary"
           onClick={handleOrder}
           size="large"
-          style={{
-            marginTop: "16px",
-            position: "absolute",
-            right: 16,
-            width: "35%",
-            height: "7%",
-          }}
+          style={chkBtn}
           disabled={isOrderDisabled}
         >
           Order

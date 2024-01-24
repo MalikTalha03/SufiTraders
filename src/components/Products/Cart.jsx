@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { Avatar, Badge, Button, Space } from "antd";
+import { Badge, Space } from "antd";
 import { useSelector } from "react-redux";
 import * as FaIcons from "react-icons/fa";
 import CartDrawer from "./CartDrawer";
+
 const Cart = (props) => {
   const [count, setCount] = useState(0);
   const [cartVisible, setCartVisible] = useState(false);

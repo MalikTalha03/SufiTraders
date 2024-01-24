@@ -4,23 +4,7 @@ import { fetchProducts } from "../../app/features/products";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { Input } from "antd";
-
-const cardContainer = {
-  display: "flex",
-  flexWrap: "wrap",
-  justifyContent: "space-around",
-  gap: "3%",
-  padding: "1% 3% 7% 3%",
-  height: "100%",
-};
-
-const searchBar = {
-  width: "15%",
-  height: "5%",
-  marginTop: "6%",
-  alignSelf: "flex-end",
-  marginRight: "5%",
-};
+import { cardContainer, main, searchBar } from "./styles";
 
 const Product = () => {
   const dispatch = useDispatch();
@@ -44,7 +28,7 @@ const Product = () => {
   );
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", height: "100%" }}>
+    <div style={main}>
       <Input
         placeholder="Search Product"
         style={searchBar}

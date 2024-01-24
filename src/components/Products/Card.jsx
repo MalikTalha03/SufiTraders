@@ -5,6 +5,16 @@ import * as FaIcons from "react-icons/fa";
 import logo from "../../Sufi_ccexpress.png";
 import { setOrderdata } from "../../app/features/orderdata";
 import { useDispatch } from "react-redux";
+import {
+  cardMain,
+  cardItems,
+  nameSpan,
+  priceSpan,
+  addCartBtn,
+  btnGrp,
+  cartBtn,
+  qtySpan,
+} from "./styles";
 
 const ProdCard = (props) => {
   const [quantity, setQuantity] = useState(0);
@@ -40,52 +50,26 @@ const ProdCard = (props) => {
   };
 
   return (
-    <Card
-      hoverable
-      style={{
-        width: 240,
-        marginBottom: "3%",
-        backgroundColor: "#f5f5f5",
-      }}
-      cover={<img alt="example" src={logo} />}
-    >
-      <div
-        style={{
-          marginTop: "10px",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "space-between",
-          alignItems: "center",
-        }}
-      >
-        <span style={{ fontWeight: "bold", fontSize: "16px" }}>
-          {props.name}
-        </span>
-        <span style={{ fontSize: "14px", color: "#666" }}>
-          Price: {props.price}
-        </span>
+    <Card hoverable style={cardMain} cover={<img alt="example" src={logo} />}>
+      <div style={cardItems}>
+        <span style={nameSpan}>{props.name}</span>
+        <span style={priceSpan}>Price: {props.price}</span>
         {quantity === 0 ? (
-          <Button
-            type="primary"
-            style={{ marginTop: "10px" }}
-            onClick={handleAddToCart}
-          >
+          <Button type="primary" style={addCartBtn} onClick={handleAddToCart}>
             Add to Cart
           </Button>
         ) : (
-          <div style={{ display: "flex", alignItems: "center" }}>
+          <div style={btnGrp}>
             <Button
               type="primary"
-              style={{ background: "none", border: "none" }}
+              style={cartBtn}
               onClick={handleRemoveFromCart}
               icon={<FaIcons.FaMinus color="black" />}
             />
-            <span style={{ margin: "0 10px", fontSize: "16px" }}>
-              {quantity}
-            </span>
+            <span style={qtySpan}>{quantity}</span>
             <Button
               type="primary"
-              style={{ background: "none", border: "none" }}
+              style={cartBtn}
               onClick={handleAddToCart}
               icon={<FaIcons.FaPlus color="black" />}
             />
