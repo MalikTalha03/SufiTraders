@@ -2,6 +2,7 @@ import React from "react";
 import { Typography, Card, Row, Col, Space } from "antd";
 import { FaEnvelope, FaPhone } from "react-icons/fa";
 import { useForm, ValidationError } from "@formspree/react";
+import Map from "./Map";
 
 const { Title, Paragraph } = Typography;
 
@@ -137,6 +138,10 @@ const Contact = () => {
         </Paragraph>
 
         <ContactForm />
+      </Card>
+
+      <Card title="Our Location" style={{ marginBottom: "16px" }}>
+        <Map />
       </Card>
     </div>
   );
