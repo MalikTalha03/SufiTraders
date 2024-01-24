@@ -57,7 +57,7 @@ const Navbar = () => {
         <div style={{ width: "50%", marginLeft: "25%" }}>
           <Menu
             mode="horizontal"
-            style={{ display: "flex", alignItems: "center" }}
+            style={{ display: "flex", alignItems: "center", background:"none" }}
           >
             <Menu.Item key="app">
               <Link
