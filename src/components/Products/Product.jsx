@@ -5,13 +5,20 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { Input } from "antd";
 import { cardContainer, main, searchBar } from "./styles";
+import { Skeleton } from "antd";
 
 const Product = () => {
   useEffect(() => {
     fetchProducts();
-  },[]);
+  }, []);
   const dispatch = useDispatch();
-
+  const [isLoding, setIsLoding] = useState(false);
+  useEffect(() => {
+    setIsLoding(true);
+    setTimeout(() => {
+      setIsLoding(false);
+    }, 2000);
+  }, []);
   const [isMobile, setIsMobile] = useState(
     window.matchMedia("(max-width: 767px)").matches
   );
@@ -57,7 +64,11 @@ const Product = () => {
       />
       <div style={cardContainer}>
         {filteredProducts.length === 0 ? (
-          <p>No products found</p>
+          <>
+            <Skeleton active />
+            <Skeleton active />
+            <Skeleton active />
+          </>
         ) : (
           filteredProducts.map((product) => (
             <Card
