@@ -105,7 +105,7 @@ const Navbar = () => {
         title="Menu"
         placement="right"
         onClose={onClose}
-        visible={visible}
+        open={visible}
       >
         <Menu mode="vertical">
           <Menu.Item key="app">

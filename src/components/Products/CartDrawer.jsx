@@ -185,11 +185,11 @@ const CartDrawer = ({ visible, onClose }) => {
       id: product.id,
       name: product.name,
       price:
-        product.price !== undefined ? `$${product.price.toFixed(2)}` : "N/A",
+        product.price !== undefined ? `${product.price.toFixed(2)}` : "N/A",
       quantity: product.quantity,
       total:
         product.price !== undefined
-          ? `$${(product.price * product.quantity).toFixed(2)}`
+          ? `${(product.price * product.quantity).toFixed(2)}`
           : "N/A",
     }));
 
@@ -202,12 +202,12 @@ const CartDrawer = ({ visible, onClose }) => {
     <Drawer
       title="Product Details"
       onClose={onClose}
-      visible={visible}
+      open={visible}
       width={600}
     >
       <Table columns={columns} dataSource={dataSource} pagination={false} />
       <div style={table}>
-        <span style={span}>Subtotal: ${subtotal}</span>
+        <span style={span}>Subtotal:  PKR {subtotal}</span>
       </div>
       <Button
         type="primary"

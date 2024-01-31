@@ -14,9 +14,7 @@ const Cart = (props) => {
     const handleResize = () => {
       setIsMobile(window.matchMedia("(max-width: 767px)").matches);
     };
-
     window.addEventListener("resize", handleResize);
-
     return () => {
       window.removeEventListener("resize", handleResize);
     };

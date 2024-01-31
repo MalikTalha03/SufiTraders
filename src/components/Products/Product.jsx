@@ -8,10 +8,10 @@ import { cardContainer, main, searchBar } from "./styles";
 import { Skeleton } from "antd";
 
 const Product = () => {
+  const dispatch = useDispatch();
   useEffect(() => {
     fetchProducts();
-  }, []);
-  const dispatch = useDispatch();
+  }, [dispatch]);
   const [isLoding, setIsLoding] = useState(false);
   useEffect(() => {
     setIsLoding(true);
@@ -24,13 +24,10 @@ const Product = () => {
   );
   useEffect(() => {
     dispatch(fetchProducts());
-
     const handleResize = () => {
       setIsMobile(window.matchMedia("(max-width: 767px)").matches);
     };
-
     window.addEventListener("resize", handleResize);
-
     return () => {
       window.removeEventListener("resize", handleResize);
     };
@@ -70,15 +67,19 @@ const Product = () => {
             <Skeleton active />
           </>
         ) : (
-          filteredProducts.map((product) => (
-            <Card
-              key={product.id}
-              id={product.id}
-              name={product.name}
-              price={product.price}
-              quantity={product.quantity}
-            />
-          ))
+          filteredProducts.map((product) => {
+            if (product.quantity > 0) {
+              return (
+                <Card
+                  key={product.id}
+                  id={product.id}
+                  name={product.name}
+                  price={product.price}
+                  quantity={product.quantity}
+                />
+              );
+            }
+          })
         )}
       </div>
     </div>

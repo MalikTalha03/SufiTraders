@@ -23,7 +23,7 @@ const Checkout = ({ open, onClose, subtotal, onOrder }) => {
   };
 
   return (
-    <Drawer title="Checkout" onClose={onClose} visible={open} width={400}>
+    <Drawer title="Checkout" onClose={onClose} open={open} width={400}>
       <Space direction="vertical" style={mainCont}>
         <Input
           placeholder="First Name"
@@ -42,7 +42,7 @@ const Checkout = ({ open, onClose, subtotal, onOrder }) => {
           onChange={(e) => setContact(e.target.value)}
           style={input}
         />
-        <div style={subTotal}>Subtotal: ${Number(subtotal).toFixed(2)}</div>
+        <div style={subTotal}>Subtotal:  PKR {Number(subtotal).toFixed(2)}</div>
         <Button
           type="primary"
           onClick={handleOrder}
